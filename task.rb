@@ -65,8 +65,9 @@ def q8
   programming_languages = %w(ruby php python javascript)
 
   # 以下に回答を記載
-  upper_case_programming_languages = programming_languages.map{|language| language.upcase}
-  p programming_languages
+  # upper_case_programming_languages = programming_languages.map{|language| language.upcase}
+  upper_case_programming_languages = programming_languages.map(&:upcase)
+  p programming_languages.map(&:capitalize)
   p upper_case_programming_languages
 end
 
@@ -109,7 +110,7 @@ def q12
   data = { user: { name: "satou", age: 33 } }
 
   # 以下に回答を記載
-
+  puts data[:user][:name]
 end
 
 def q13
@@ -117,14 +118,16 @@ def q13
   update_data = { age: 32, address: "沖縄" }
 
   # 以下に回答を記載
-
+  user_data.replace update_data
+  p user_data
 end
 
 def q14
   data = { name: "satou", age: 33, address: "saitama", hobby: "soccer", email: "hoge@fuga.com" }
 
   # 以下に回答を記載
-
+  key = data.keys
+  puts key
 end
 
 def q15
@@ -132,7 +135,16 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
-
+  if data1.has_key?(:age)
+    puts "OK"
+  else
+    puts "NG"
+  end
+  if data2.has_key?(:age)
+    puts "OK"
+  else
+    puts "NG"
+  end
 end
 
 def q16
@@ -143,8 +155,10 @@ def q16
     { name: "nakamura", age: 41 }
   ]
 
-  # 以下に回答を記載
-
+  以下に回答を記載
+  users.each do |user|
+    puts "私の名前は#{user[:name]}です。年齢は#{user[:age]}です。"
+  end
 end
 
 class UserQ17
@@ -154,7 +168,7 @@ end
 
 def q17
   # ここは変更しないで下さい（ユーザー情報は変更していただいてOKです）
-  user1 = UserQ17.new(name: "神里", age: 32, gender: "男", admin: true)
+  user1 = UserQ17.new(name: "田中", age: 28, gender: "男", admin: true)
   user2 = UserQ17.new(name: "あじー", age: 32, gender: "男", admin: false)
 
   user1.info
