@@ -118,8 +118,9 @@ def q13
   update_data = { age: 32, address: "沖縄" }
 
   # 以下に回答を記載
-  user_data.replace update_data
-  p user_data
+  # user_data.replace update_data　指摘事項：これではただの置き換えだ〜
+  # ↓メソッド変更
+  p user_data.merge(update_data)
 end
 
 def q14
@@ -135,16 +136,18 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
-  if data1.has_key?(:age)
-    puts "OK"
-  else
-    puts "NG"
-  end
-  if data2.has_key?(:age)
-    puts "OK"
-  else
-    puts "NG"
-  end
+  # if data1.has_key?(:age)
+  #   puts "OK"
+  # else
+  #   puts "NG"
+  # end
+  # if data2.has_key?(:age)
+  #   puts "OK"
+  # else
+  #   puts "NG"
+  # end　　指摘事項：三項演算子を使えばすっきりする。　ifで書くとモサっとしてしまう
+  puts data1.has_key?(:age) ? "OK" : "NG"
+  puts data2.has_key?(:age) ? "OK" : "NG"
 end
 
 def q16
@@ -162,8 +165,19 @@ def q16
 end
 
 class UserQ17
-  # 以下に回答を記載
-
+#   以下に回答を記載
+  def initialize(user)
+    @name = user[:name]
+    @age = user[:age]
+    @gender = user[:gender]
+    @admin = user[:admin]
+  end
+  def info
+    puts "名前：#{@name}"
+    puts "年齢：#{@age}"
+    puts "性別：#{@gender}"
+    puts "管理者権限：" + (@admin? "有り" : "無し" )
+  end
 end
 
 def q17
@@ -178,7 +192,17 @@ end
 
 class UserQ18
   # 以下に回答を記載
-
+  def initialize(user)
+    @name = user[:name]
+    @age = user[:age]
+  end
+  def introduce
+    if @age == 32
+      puts "こんにちは,#{@name}と申します。宜しくお願いいたします"
+    elsif @age == 10
+      puts "はいさいまいど〜,#{@name}です。"
+    end
+  end
 end
 
 def q18
@@ -192,8 +216,8 @@ end
 
 class Item
   # 以下を修正して下さい
-
-  def initialize(name)
+  attr_reader :name
+  def initialize(name:)
     @name = name
   end
 end
