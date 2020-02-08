@@ -166,17 +166,19 @@ end
 
 class UserQ17
 #   以下に回答を記載
-  def initialize(user)
-    @name = user[:name]
-    @age = user[:age]
-    @gender = user[:gender]
-    @admin = user[:admin]
+  def initialize(**params)
+    @name = params[:name]
+    @age = params[:age]
+    @gender = params[:gender]
+    @admin = params[:admin]?"有り" : "無し"
   end
   def info
-    puts "名前：#{@name}"
-    puts "年齢：#{@age}"
-    puts "性別：#{@gender}"
-    puts "管理者権限：" + (@admin? "有り" : "無し" )
+    puts  <<-EOS
+    名前：#{@name}
+    年齢：#{@age}
+    性別：#{@gender}
+    管理者権限： #{@admin}
+    EOS
   end
 end
 
@@ -230,14 +232,37 @@ end
 
 class UserQ20
   # 以下に回答を記載
+  attr_reader :name, :age
 
+  def initialize(users)
+    @name = users[:name]
+    @age = users[:age]
+  end
 end
 
 class Zoo
   # 以下に回答を記載
+  def initialize(zoo)
+    @infant = zoo[:entry_fee][:infant]
+    @children = zoo[:entry_fee][:children]
+    @adult = zoo[:entry_fee][:adult]
+    @senior = zoo[:entry_fee][:senior]
+  end
 
-end
-
+  def info_entry_fee(users)
+    case users.age
+    when 0..5
+      entry_fee = @infant
+    when 6..12
+      entry_fee = @children
+    when 13..65
+      entry_fee = @adult
+    when 64..120
+      entry_fee = @senior
+    end
+    puts "#{users.name}さんの入場料金は#{entry_fee}円です。"
+   end
+  end
 
 def q20
   # ここは変更しないで下さい（動物園・ユーザー情報は変更していただいてOKです）
